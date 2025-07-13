@@ -6,6 +6,6 @@ const port = 3000;
 
 app.use('/', routes);
 
-app.listen(port, ()=> {
-    console.log('Server up and running...')
+app.listen(port, () => {
+  console.log('Server up and running...')
 });
