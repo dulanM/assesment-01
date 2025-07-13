@@ -6,4 +6,11 @@ async function fetchUsers() {
     return res.data;
 }
 
-module.exports = { fetchUsers }
+async function addUsers(users) {
+    const dbcon = db.prepare("INSERT OR IGNORE INTO users (id, username, email) VALUES (?, ?, ?)");
+    for (const user of users) {
+        dbcon.run(user.id, user.username, user.email);
+    }
+    dbcon.finalize();
+}
+module.exports = { fetchUsers, addUsers }

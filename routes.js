@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const db = require('./db');
-const { fetchUsers } = require('./api');
+const { fetchUsers, addUsers } = require('./api');
 
 router.get('/users', async (req, res) => {
-    db.all("SELECT * FROM users", async (err, rows)=> {
+    db.all("SELECT * FROM users", async (err, rows) => {
         if (err) return res.status(500).json({ error: err.message });
 
         if (rows.length === 0) {
             const users = await fetchUsers();
+            await addUsers(users);
             return res.json(users);
         }
         else {
